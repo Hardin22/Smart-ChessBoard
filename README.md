@@ -1,2 +1,2 @@
 # Smart-ChessBoard
-Smart Chessboard: A physical chessboard that allows games against a computer or another player. Built with Raspberry Pi 5 and ESP32 for LED control. Stay tuned for updates on this interactive project for chess enthusiasts
+This repository contains the code for a smart physical chessboard. The chessboard allows players to engage in a game against the computer or another player, with the option to receive assistance. The project is built using a Raspberry Pi 5 and an ESP32 for LED control. The chessboard aims to provide an interactive and engaging experience for chess enthusiasts of all levels. Stay tuned for updates as I progress in this exciting project.
