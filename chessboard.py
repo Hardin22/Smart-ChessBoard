@@ -1,7 +1,7 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 import chess
-
+import os
 
 class ChessBoard(tk.Frame):
     def __init__(self, master=None):
@@ -9,7 +9,7 @@ class ChessBoard(tk.Frame):
         self.master = master if master else tk.Tk()
         self.canvas = tk.Canvas(self.master, width=512, height=512)
         self.canvas.pack()
-        self.canvas.pack_configure(pady=(40, 0))  # Aggiunge un margine superiore di 40 pixel
+        self.canvas.pack_configure(pady=(40, 0))  # Adds a top margin of 40 pixels
         self.images = {}
         self.load_images()
         self.draw_board()
@@ -31,7 +31,8 @@ class ChessBoard(tk.Frame):
             'P': 'wP.png'
         }
         for piece, filename in pieces.items():
-            img = Image.open(f"images/{filename}").convert("RGBA").resize((64, 64), Image.Resampling.LANCZOS)
+            img_path = os.path.join(os.path.dirname(__file__), 'images', filename)
+            img = Image.open(img_path).convert("RGBA").resize((64, 64), Image.Resampling.LANCZOS)
             self.images[piece] = ImageTk.PhotoImage(img)
 
     def draw_board(self):
@@ -50,7 +51,6 @@ class ChessBoard(tk.Frame):
                 if piece:
                     self.canvas.create_image(col * 64, (7 - row) * 64, image=self.images[piece.symbol()], anchor=tk.NW, tags="piece")
         self.master.update_idletasks()
-
 
 if __name__ == "__main__":
     root = tk.Tk()
