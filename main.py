@@ -42,6 +42,8 @@ def start_game(update_label_callback, update_eval_bar_callback, difficulty, ches
     game_thread = threading.Thread(target=game_loop)
     game_thread.start()
 
+
+
 def make_move(move, update_label_callback, update_eval_bar_callback, chessboard):
     try:
         board.push_san(move)

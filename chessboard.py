@@ -9,6 +9,7 @@ class ChessBoard(tk.Frame):
         self.master = master if master else tk.Tk()
         self.canvas = tk.Canvas(self.master, width=512, height=512)
         self.canvas.pack()
+        self.canvas.pack_configure(pady=(40, 0))  # Aggiunge un margine superiore di 40 pixel
         self.images = {}
         self.load_images()
         self.draw_board()
@@ -34,11 +35,11 @@ class ChessBoard(tk.Frame):
             self.images[piece] = ImageTk.PhotoImage(img)
 
     def draw_board(self):
-        colors = ["#DDB88C", "#A66D4F"]
+        colors = ["#ebebd3", "#7a945a"]
         for row in range(8):
             for col in range(8):
                 color = colors[(row + col) % 2]
-                self.canvas.create_rectangle(col * 64, row * 64, (col + 1) * 64, (row + 1) * 64, fill=color)
+                self.canvas.create_rectangle(col * 64, row * 64, (col + 1) * 64, (row + 1) * 64, fill=color, outline=color)
 
     def update_board(self, fen):
         self.canvas.delete("piece")
@@ -50,13 +51,6 @@ class ChessBoard(tk.Frame):
                     self.canvas.create_image(col * 64, (7 - row) * 64, image=self.images[piece.symbol()], anchor=tk.NW, tags="piece")
         self.master.update_idletasks()
 
-    def evaluate_position(self, fen):
-        board = chess.Board(fen)
-        info = self.engine.analyse(board, chess.engine.Limit(time=0.1))
-        return info["score"].relative.score(mate_score=10000) / 100.0
-
-    def close_engine(self):
-        self.engine.quit()
 
 if __name__ == "__main__":
     root = tk.Tk()
